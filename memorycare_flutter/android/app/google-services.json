@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "513781167611",
+    "project_id": "memorycare-443ed",
+    "storage_bucket": "memorycare-443ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:513781167611:android:958e9e487fa443d864875e",
+        "android_client_info": {
+          "package_name": "com.example.memorycare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5_exv7--DGNZrVjh3xILV7yuGBNqWKs0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
