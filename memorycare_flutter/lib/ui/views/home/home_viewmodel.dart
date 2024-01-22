@@ -74,6 +74,7 @@ class HomeViewModel extends StreamViewModel<List<Reminder>> {
 
   void setPickedLocation(LatLng latLng) {
     _firestoreService.updateHomeLocation(latLng.latitude, latLng.longitude);
+    _userService.fetchUser();
     _snackBarService.showSnackbar(message: "Home location set");
   }
 
