@@ -9,6 +9,7 @@ class AppUser {
   final double longitude;
   final double homeLong;
   final String place;
+  final String phone;
   final DateTime regTime;
 
   AppUser({
@@ -23,6 +24,7 @@ class AppUser {
     required this.homeLong,
     required this.place,
     required this.regTime,
+    required this.phone,
   });
 
   AppUser.fromMap(Map<String, dynamic> data)
@@ -35,6 +37,7 @@ class AppUser {
         longitude = data['long'] ?? 0.0,
         homeLat = data['homeLat'] ?? 0.0,
         homeLong = data['homeLong'] ?? 0.0,
+        phone = data['phone'] ?? "",
         place = data['place'] ?? "",
         regTime =
             data['regTime'] != null ? data['regTime'].toDate() : DateTime.now();
@@ -50,6 +53,7 @@ class AppUser {
       'lat': latitude,
       'long': longitude,
       'place': place,
+      'phone': "+918137810031",
       'regTime': regTime,
     };
     // if (imgString != null) map['imgString'] = imgString!;

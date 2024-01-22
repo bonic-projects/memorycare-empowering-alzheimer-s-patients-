@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:flutter_sms/flutter_sms.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:memorycare/services/user_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../app/app.locator.dart';
@@ -11,6 +13,7 @@ import 'firestore_service.dart';
 class LocationService {
   final log = getLogger('LocationService');
   final _firestoreService = locator<FirestoreService>();
+  final _userService = locator<UserService>();
 
   late Position _currentPosition;
   late String _currentPlace;
@@ -55,7 +58,22 @@ class LocationService {
           "Lat: ${_currentPosition.latitude}, Long: ${_currentPosition.longitude}  Place: $_currentPlace");
       _firestoreService.updateLocation(
           _currentPosition.latitude, _currentPosition.longitude, _currentPlace);
+      //distance checking
+      double distance = Geolocator.distanceBetween(_currentPosition.latitude, _currentPosition.longitude, _userService.user!.homeLat, _userService.user!.homeLong);
+      log.e(distance);
+      if(distance > 30) {
+        _sendSMS("ALERT! Patient is $distance meter away from home!, View current location: http://maps.google.com/maps?z=12&t=m&q=loc:${_currentPosition.latitude}+${_currentPosition.longitude}", [_userService.user!.phone]);
+      }
+
     }
+  }
+
+  void _sendSMS(String message, List<String> recipents) async {
+    String result = await sendSMS(message: message, recipients: recipents)
+        .catchError((onError) {
+      log.e(onError);
+    });
+    log.i(result);
   }
 
   Future<void> initialise() async {

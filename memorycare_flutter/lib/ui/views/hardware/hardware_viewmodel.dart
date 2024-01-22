@@ -43,9 +43,9 @@ class HardwareViewModel extends BaseViewModel {
 
   List<String> get labels => _labels;
 
-  String? _ip;
+  late String _ip;
 
-  String? get ip => _ip;
+  String get ip => _ip;
 
   void onModelReady() async {
     setBusy(true);
@@ -53,7 +53,7 @@ class HardwareViewModel extends BaseViewModel {
 
     _locService.initialise();
 
-    _ip = "192.168.29.240";
+    _ip = "192.168.29.122";
     setBusy(false);
 
     _subscription = PerfectVolumeControl.stream.listen((value) {
@@ -62,6 +62,11 @@ class HardwareViewModel extends BaseViewModel {
         work();
       }
     });
+  }
+
+  void setIp(String ipIn){
+    _ip = ipIn;
+    notifyListeners();
   }
 
   late StreamSubscription<double> _subscription;
@@ -76,6 +81,8 @@ class HardwareViewModel extends BaseViewModel {
 
   void work() async {
     setBusy(true);
+    await getImageFromHardware();
+    await getImageFromHardware();
     await getImageFromHardware();
     if (_image != null) await getLabel();
   }
@@ -126,8 +133,8 @@ class HardwareViewModel extends BaseViewModel {
 
     Uri uri = Uri(
       scheme: 'http',
-      host: ip!,
-      path: '/jpg',
+      host: _ip,
+      path: '/image',
     );
 
     try {

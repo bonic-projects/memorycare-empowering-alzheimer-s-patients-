@@ -65,6 +65,7 @@ class RegisterViewModel extends FormViewModel {
           regTime: DateTime.now(),
           homeLat: 0.0,
           homeLong: 0.0,
+          phone: "",
         ));
         if (error == null) {
           _userService.fetchUser();

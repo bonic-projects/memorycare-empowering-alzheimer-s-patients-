@@ -141,7 +141,6 @@ class InAppViewModel extends BaseViewModel {
       return processFace();
     }
 
-    await processFace();
     _image = null;
     await Future.delayed(const Duration(seconds: 1));
     setBusy(false);

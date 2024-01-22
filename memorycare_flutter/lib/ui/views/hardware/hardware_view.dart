@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memorycare/ui/views/widgets/ip.dart';
 import 'package:stacked/stacked.dart';
 
 import 'hardware_viewmodel.dart';
@@ -44,8 +45,8 @@ class HardwareView extends StatelessWidget {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  if (model.isBusy) const CircularProgressIndicator(),
-                  if (model.imageSelected != null &&
+                  if (model.isBusy) const CircularProgressIndicator()
+                  else if (model.imageSelected != null &&
                       model.imageSelected!.path != "")
                     Expanded(
                       child: RotatedBox(
@@ -54,6 +55,10 @@ class HardwareView extends StatelessWidget {
                             // model.imageSelected!.readAsBytesSync(),
                             ),
                       ),
+                    )
+                  else IpAddressInputWidget(
+                      onSetIp: model.setIp,
+                        initialIp: model.ip,
                     ),
                   if (model.labels.isNotEmpty)
                     Padding(
@@ -61,7 +66,7 @@ class HardwareView extends StatelessWidget {
                       child: Text(
                         model.labels.toString(),
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),

@@ -81,16 +81,16 @@ class RegulaService {
 
   Future<List<Regula.MatchFacesImage>> getImagesStored() async {
     final Directory directory = await getApplicationDocumentsDirectory();
-    List<String> _images = directory
+    List<String> images = directory
         .listSync()
         .map((item) => item.path)
-        .where((item) => item.endsWith(".png"))
+        .where((item) => item.endsWith(".png") && !item.contains("image"))
         .toList(growable: false);
-    log.i(_images);
+    log.i(images);
     List<Regula.MatchFacesImage> rImages = <Regula.MatchFacesImage>[];
-    _images.forEach((img) {
+    for (var img in images) {
       rImages.add(getMatchFaceImage(img));
-    });
+    }
 
     return rImages;
   }
