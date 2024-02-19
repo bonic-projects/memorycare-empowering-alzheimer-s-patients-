@@ -86,8 +86,8 @@ class HomeViewModel extends StreamViewModel<List<Reminder>> {
   }
 
   void logout() {
-    _userService.logout();
     _navigationService.replaceWithLoginRegisterView();
+    _userService.logout();
   }
 
   void showBottomSheetUserSearch() async {
@@ -113,7 +113,7 @@ class HomeViewModel extends StreamViewModel<List<Reminder>> {
   // Method to start checking for reminders
   void startReminderCheck() {
     // Schedule a timer to check reminders every minute
-    _reminderTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
+    _reminderTimer = Timer.periodic(const Duration(seconds: 20), (timer) {
       checkReminders();
     });
   }
@@ -130,7 +130,8 @@ class HomeViewModel extends StreamViewModel<List<Reminder>> {
 
       // Iterate through reminders and check if any have reached the current time
       for (Reminder reminder in data!) {
-        if (currentTime.isAfter(reminder.dateTime)) {
+        // if (currentTime.isAfter(reminder.dateTime)) {
+        if (currentTime.hour == reminder.dateTime.hour && currentTime.minute == reminder.dateTime.minute) {
           // Call a function or trigger an action when the reminder time is reached
           handleReminderReachedTime(reminder);
         }
@@ -142,7 +143,7 @@ class HomeViewModel extends StreamViewModel<List<Reminder>> {
   void handleReminderReachedTime(Reminder reminder) async {
     log.i('Reminder reached time: ${reminder.message}');
     await _ttsService.speak("Reminder: ${reminder.message}");
-    onDelete(reminder);
+    // onDelete(reminder);
   }
 
   @override

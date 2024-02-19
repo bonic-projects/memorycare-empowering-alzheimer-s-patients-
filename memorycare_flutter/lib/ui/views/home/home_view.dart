@@ -380,7 +380,7 @@ class ReminderListItem extends StatelessWidget {
     return Card(
       child: ListTile(
         title: Text(reminder.message),
-        subtitle: Text(reminder.dateTime.toString()),
+        subtitle: Text("Time: ${reminder.dateTime.hour}:${reminder.dateTime.minute}"),
         trailing: IconButton(
           icon: const Icon(
             Icons.delete,

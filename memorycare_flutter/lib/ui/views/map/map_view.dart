@@ -113,7 +113,7 @@ class _ReminderInputBottomSheetState extends State<ReminderInputBottomSheet> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Select Date and Time'),
+                const Text('Select Time'),
                 TextButton(
                   onPressed: () => _selectDateTime(context),
                   child: const Text('Pick'),
@@ -125,7 +125,7 @@ class _ReminderInputBottomSheetState extends State<ReminderInputBottomSheet> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  'Selected Date and Time: ${_selectedDateTime.toLocal()}',
+                  'Selected Time: ${_selectedDateTime.hour}: ${_selectedDateTime.minute}',
                   style: const TextStyle(fontSize: 12.0),
                 ),
               ),
@@ -142,14 +142,14 @@ class _ReminderInputBottomSheetState extends State<ReminderInputBottomSheet> {
   }
 
   Future<void> _selectDateTime(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: _selectedDateTime,
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 365)),
-    );
+    // final DateTime? picked = await showDatePicker(
+    //   context: context,
+    //   initialDate: _selectedDateTime,
+    //   firstDate: DateTime.now(),
+    //   lastDate: DateTime.now().add(const Duration(days: 365)),
+    // );
 
-    if (picked != null) {
+    // if (picked != null) {
       final TimeOfDay? time = await showTimePicker(
         context: context,
         initialTime: TimeOfDay.fromDateTime(_selectedDateTime),
@@ -157,16 +157,20 @@ class _ReminderInputBottomSheetState extends State<ReminderInputBottomSheet> {
 
       if (time != null) {
         setState(() {
-          _selectedDateTime = DateTime(
-            picked.year,
-            picked.month,
-            picked.day,
+          _selectedDateTime =
+              DateTime(
+                2024,
+                1,
+                1,
+            // picked.year,
+            // picked.month,
+            // picked.day,
             time.hour,
             time.minute,
           );
         });
       }
-    }
+    // }
   }
 
   void _submitForm() {
