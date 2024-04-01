@@ -65,6 +65,7 @@ class HardwareViewModel extends BaseViewModel {
   }
 
   void setIp(String ipIn){
+    log.i(ipIn);
     _ip = ipIn;
     notifyListeners();
   }

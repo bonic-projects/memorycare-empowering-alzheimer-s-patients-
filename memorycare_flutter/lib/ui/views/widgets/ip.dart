@@ -22,45 +22,43 @@ class _IpAddressInputWidgetState extends State<IpAddressInputWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      child: Column(
-        children: [
-          TextFormField(
-            controller: _ipController,
-            keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            // inputFormatters: [
-            //   FilteringTextInputFormatter.allow(
-            //     RegExp(r'^\d{0,3}(\.\d{0,3}){0,3}$'),
-            //   ),
-            // ],
-            decoration: const InputDecoration(
-              labelText: 'Enter IP Address',
-            ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter an IP address';
-              }
-              // You can add more advanced IP address validation logic here if needed
-              if (!isValidIpAddress(value)) {
-                return 'Invalid IP address format';
-              }
-              return null;
-            },
+    return Column(
+      children: [
+        TextFormField(
+          controller: _ipController,
+          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+          // inputFormatters: [
+          //   FilteringTextInputFormatter.allow(
+          //     RegExp(r'^\d{0,3}(\.\d{0,3}){0,3}$'),
+          //   ),
+          // ],
+          decoration: const InputDecoration(
+            labelText: 'Enter IP Address',
           ),
-          const SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: () {
-              if (Form.of(context).validate()) {
-                // Validation passed, return the entered IP address
-                String ipAddress = _ipController.text;
-                // Callback to the parent widget with the valid IP address
-                widget.onSetIp?.call(ipAddress);
-              }
-            },
-            child: const Text('Set IP'),
-          ),
-        ],
-      ),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter an IP address';
+            }
+            // You can add more advanced IP address validation logic here if needed
+            if (!isValidIpAddress(value)) {
+              return 'Invalid IP address format';
+            }
+            return null;
+          },
+        ),
+        const SizedBox(height: 16),
+        ElevatedButton(
+          onPressed: () {
+            // if (Form.of(context).validate()) {
+              // Validation passed, return the entered IP address
+              String ipAddress = _ipController.text;
+              // Callback to the parent widget with the valid IP address
+              widget.onSetIp?.call(ipAddress);
+            // }
+          },
+          child: const Text('Set IP'),
+        ),
+      ],
     );
   }
 
