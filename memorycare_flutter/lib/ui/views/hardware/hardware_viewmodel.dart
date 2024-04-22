@@ -53,7 +53,7 @@ class HardwareViewModel extends BaseViewModel {
 
     _locService.initialise();
 
-    _ip = "192.168.29.122";
+    _ip = "192.168.4.1";
     setBusy(false);
 
     _subscription = PerfectVolumeControl.stream.listen((value) {
@@ -83,8 +83,8 @@ class HardwareViewModel extends BaseViewModel {
   void work() async {
     setBusy(true);
     await getImageFromHardware();
-    await getImageFromHardware();
-    await getImageFromHardware();
+    // await getImageFromHardware();
+    // await getImageFromHardware();
     if (_image != null) await getLabel();
   }
 
@@ -135,7 +135,7 @@ class HardwareViewModel extends BaseViewModel {
     Uri uri = Uri(
       scheme: 'http',
       host: _ip,
-      path: '/image',
+      path: '/snapshot',
     );
 
     try {
